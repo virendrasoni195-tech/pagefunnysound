@@ -5,18 +5,6 @@
 <meta charset="UTF-8">
 <title>Freezone123 - Sound Board</title>
 <script>
-let currentAudio = null;
-
-function playSound(url) {
-    if (currentAudio && !currentAudio.paused) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-    }
-    const audio = new Audio(url);
-    currentAudio = audio;
-    audio.play();
-}
-</script>
 </body>
 </html>
 
