@@ -6,7 +6,9 @@
 
 <style>
     body {
-        background: #000;
+        background: linear-gradient(135deg, #001f3f, #3a007d, #ff004c);
+        background-size: 300% 300%;
+        animation: bgMove 12s infinite alternate;
         font-family: Arial, sans-serif;
         color: #fff;
         margin: 0;
@@ -14,24 +16,32 @@
         text-align: center;
     }
 
+    @keyframes bgMove {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+    }
+
     h1 {
         margin-top: 20px;
         font-size: 32px;
         font-weight: bold;
         color: #00eaff;
+        text-shadow: 0 0 10px #00eaff;
     }
 
     /* Search Box */
     #searchBox {
         width: 90%;
         max-width: 420px;
-        padding: 12px;
+        padding: 14px;
         margin: 20px auto;
-        border-radius: 10px;
+        border-radius: 12px;
         border: none;
         font-size: 18px;
         outline: none;
         text-align: center;
+        background: #ffffffcc;
+        color: #000;
     }
 
     /* Recommended Section */
@@ -40,17 +50,19 @@
         padding: 15px;
         width: 90%;
         max-width: 900px;
-        background: #111;
-        border-radius: 12px;
+        background: #ffffff22;
+        border-radius: 15px;
         font-size: 20px;
         color: #00ffaa;
         font-weight: bold;
+        backdrop-filter: blur(8px);
+        border: 1px solid #00ffaa55;
     }
 
-    /* 5 Column Grid */
+    /* Responsive Grid */
     .grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 15px;
         padding: 20px;
         width: 95%;
@@ -58,41 +70,95 @@
     }
 
     .card {
-        background: #111;
-        border-radius: 12px;
-        padding: 12px;
+        background: #ffffff1a;
+        border-radius: 14px;
+        padding: 14px;
         font-size: 15px;
         color: #fff;
-        transition: 0.2s;
+        transition: 0.25s;
+        border: 1px solid #ffffff33;
+        backdrop-filter: blur(6px);
     }
     .card:hover {
-        transform: scale(1.07);
-        background: #222;
+        transform: scale(1.06);
+        background: #ffffff33;
+        border-color: #00eaff;
     }
 
     .card h3 {
-        font-size: 14px;
+        font-size: 15px;
         margin-bottom: 10px;
+        text-shadow: 0 0 6px #000;
     }
 
     button {
-        width: 90%;
-        padding: 10px;
-        margin: 5px;
-        border-radius: 8px;
+        width: 100%;
+        padding: 14px;
+        margin: 6px 0;
+        border-radius: 50px;
         border: none;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
+        transition: 0.2s;
+        color: #fff;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        box-shadow: 0 4px 0 #00000055;
     }
+
     .playBtn {
-        background: #00ffaa;
+        background: linear-gradient(135deg, #ff0059, #ff7b00);
+        box-shadow: 0 0 12px #ff5f9e, inset 0 -4px 0 #b3003c;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        margin: 0 auto 8px auto;
     }
+    .playBtn:hover {
+        transform: scale(1.12);
+        box-shadow: 0 0 16px #ff5f9e, inset 0 -4px 0 #990033;
+    }
+
     .downloadBtn {
         background: #00aaff;
+        box-shadow: 0 0 10px #33bbff, inset 0 -4px 0 #005fcc;
+        border-radius: 10px;
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+        color: #fff;
+        margin-top: 10px;
     }
-</style>
+    .downloadBtn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 14px #33bbff, inset 0 -4px 0 #004c99;
+    }
 
+/* Updated multi-color buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn.c1 { background: linear-gradient(45deg, #ff3e3e, #ff7a7a); }
+.btn.c2 { background: linear-gradient(45deg, #ff9d00, #ffc163); }
+.btn.c3 { background: linear-gradient(45deg, #4caf50, #7be87f); }
+.btn.c4 { background: linear-gradient(45deg, #2196f3, #6ec6ff); }
+.btn.c5 { background: linear-gradient(45deg, #9b27b0, #e07bff); }
+.btn:hover { transform: scale(1.08); }
+
+</style>
 </head>
 <body>
 
@@ -107,36 +173,36 @@
     <!-- BOX 1 -->
     <div class="card" data-name="bone break crack sound">
         <h3>Bone Break</h3>
-        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">PLAY</button>
-        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">DOWNLOAD</button>
+        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">▶ Play</button>
+        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">⬇ Download</button>
     </div>
 
     <!-- BOX 2 -->
-    <div class="card" data-name="pop click bubble">
+    <div class="card" data-name="pop bubble click sound">
         <h3>Pop Sound</h3>
-        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/pop.mp3')">PLAY</button>
-        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/pop.mp3')">DOWNLOAD</button>
+        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/pop.mp3')">▶ Play</button>
+        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/pop.mp3')">⬇ Download</button>
     </div>
 
     <!-- BOX 3 -->
     <div class="card" data-name="slap thappad funny">
         <h3>Slap Sound</h3>
-        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/slap.mp3')">PLAY</button>
-        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/slap.mp3')">DOWNLOAD</button>
+        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/slap.mp3')">▶ Play</button>
+        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/slap.mp3')">⬇ Download</button>
     </div>
 
     <!-- BOX 4 -->
-    <div class="card" data-name="boom explosion">
+    <div class="card" data-name="boom explosion blast">
         <h3>Boom Sound</h3>
-        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/boom.mp3')">PLAY</button>
-        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/boom.mp3')">DOWNLOAD</button>
+        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/boom.mp3')">▶ Play</button>
+        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/boom.mp3')">⬇ Download</button>
     </div>
 
     <!-- BOX 5 -->
-    <div class="card" data-name="whistle">
+    <div class="card" data-name="whistle seeti">
         <h3>Whistle</h3>
-        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/whistle.mp3')">PLAY</button>
-        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/whistle.mp3')">DOWNLOAD</button>
+        <button class="playBtn" onclick="playSound('https://www.myinstants.com/media/sounds/whistle.mp3')">▶ Play</button>
+        <button class="downloadBtn" onclick="downloadSound('https://www.myinstants.com/media/sounds/whistle.mp3')">⬇ Download</button>
     </div>
 
 </div>
@@ -144,14 +210,12 @@
 <script>
 let recommendedBox = document.getElementById("recommended");
 
-// PLAY Sound + Recommended Update
 function playSound(url) {
     let audio = new Audio(url);
     audio.play();
     recommendedBox.innerHTML = "🔥 Recommended: " + url.split("/").pop();
 }
 
-// DOWNLOAD Sound
 function downloadSound(url) {
     const a = document.createElement("a");
     a.href = url;
@@ -159,7 +223,6 @@ function downloadSound(url) {
     a.click();
 }
 
-// SEARCH
 document.getElementById("searchBox").addEventListener("keyup", function() {
     let value = this.value.toLowerCase();
     let cards = document.querySelectorAll(".card");
@@ -173,4 +236,3 @@ document.getElementById("searchBox").addEventListener("keyup", function() {
 
 </body>
 </html>
-
