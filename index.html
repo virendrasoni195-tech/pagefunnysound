@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, red, blue, green, purple);
+    background-size: 400% 400%;
+    animation: rgb 10s infinite linear;
+    font-family: Arial;
+}
+
+/* RGB Animation */
+@keyframes rgb {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Fog Magic Effect */
+.fog {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: radial-gradient(white 1%, transparent 60%);
+    opacity: 0.18;
+    animation: fogMove 12s infinite linear;
+}
+
+@keyframes fogMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(400px); }
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px #00000050;
+}
+
+button {
+    margin: 10px;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+/* 4 Different Color Buttons */
+.c1 { background: #ff3b3b; }
+.c2 { background: #3b9cff; }
+.c3 { background: #3bff57; }
+.c4 { background: #ff3bf7; }
+
+.download {
+    background: black;
+    color: white;
+    border-radius: 50px;
+}
+</style>
+
+<script>
+function playSound(url) {
+    var audio = new Audio(url);
+    audio.play();
+}
+
+function downloadSound(url) {
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "sound.mp3";
+    a.click();
+}
+</script>
+</head>
+
+<body>
+<div class="fog"></div>
+
+<div class="container">
+
+    <!-- BOX 1 -->
+    <div class="card">
+        <h3>Bone Break</h3>
+        <button class="c1" onclick="playSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">PLAY</button>
+        <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">DOWNLOAD</button>
+    </div>
+
+    <!-- BOX 2 -->
+    <div class="card">
+        <h3>Vine Boom</h3>
+        <button class="c2" onclick="playSound('https://www.myinstants.com/media/sounds/vine-boom.mp3')">PLAY</button>
+        <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/vine-boom.mp3')">DOWNLOAD</button>
+    </div>
+
+    <!-- BOX 3 -->
+    <div class="card">
+        <h3>Pop Sound</h3>
+        <button class="c3" onclick="playSound('https://www.myinstants.com/media/sounds/pop-up.mp3')">PLAY</button>
+        <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/pop-up.mp3')">DOWNLOAD</button>
+    </div>
+
+    <!-- BOX 4 -->
+    <div class="card">
+        <h3>Metal Hit</h3>
+        <button class="c4" onclick="playSound('https://www.myinstants.com/media/sounds/metal-hit.mp3')">PLAY</button>
+        <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/metal-hit.mp3')">DOWNLOAD</button>
+    </div>
+
+</div>
+
+</body>
+</html>
