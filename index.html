@@ -4,13 +4,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+/* GLOBAL */
 body {
     margin: 0;
     padding: 0;
     background: linear-gradient(45deg, red, blue, green, purple);
     background-size: 400% 400%;
     animation: rgb 10s infinite linear;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
+    color: white;
 }
 
 /* RGB Animation */
@@ -20,7 +22,7 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* Fog Magic Effect */
+/* Fog / Magic Effect */
 .fog {
     position: fixed;
     width: 200%;
@@ -37,35 +39,99 @@ body {
     100% { transform: translateX(400px); }
 }
 
+/* HEADER */
+header {
+    text-align: center;
+    padding: 25px 10px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 2px solid white;
+}
+
+/* SEARCH BOX */
+.search-box {
+    text-align: center;
+    margin: 20px;
+}
+
+.search-box input {
+    width: 85%;
+    max-width: 450px;
+    padding: 12px 15px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    font-size: 17px;
+}
+
+.search-box button {
+    padding: 12px 18px;
+    border: none;
+    background: black;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* AUTO RECOMMENDED TEXT */
+.recommended {
+    text-align: center;
+    font-size: 18px;
+    margin-top: -10px;
+    opacity: 0.8;
+}
+
+/* GRID - 5 COLUMNS */
 .container {
-    max-width: 900px;
+    max-width: 1500px;
     margin: auto;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
 }
 
+@media(max-width: 1100px) {
+    .container { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media(max-width: 700px) {
+    .container { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 500px) {
+    .container { grid-template-columns: repeat(1, 1fr); }
+}
+
+/* SOUND CARD */
 .card {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.22);
     backdrop-filter: blur(5px);
     padding: 20px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 0 10px #00000050;
+    box-shadow: 0 0 10px #00000060;
 }
 
+.card h3 {
+    margin-top: 0;
+}
+
+/* BUTTONS */
 button {
-    margin: 10px;
-    padding: 14px 22px;
+    margin: 8px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 50px;
-    font-size: 16px;
+    border-radius: 40px;
+    font-size: 15px;
     color: white;
     cursor: pointer;
 }
 
-/* 4 Different Color Buttons */
 .c1 { background: #ff3b3b; }
 .c2 { background: #3b9cff; }
 .c3 { background: #3bff57; }
@@ -73,8 +139,6 @@ button {
 
 .download {
     background: black;
-    color: white;
-    border-radius: 50px;
 }
 </style>
 
@@ -94,39 +158,54 @@ function downloadSound(url) {
 </head>
 
 <body>
+
 <div class="fog"></div>
+
+<header>FreeZone123</header>
+
+<div class="search-box">
+    <input type="text" placeholder="Search sound..." />
+    <button>Search</button>
+</div>
+
+<div class="recommended">Auto Recommended Sounds ↓</div>
 
 <div class="container">
 
-    <!-- BOX 1 -->
+    <!-- 5 Column Example (You can add unlimited boxes) -->
     <div class="card">
         <h3>Bone Break</h3>
         <button class="c1" onclick="playSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">PLAY</button>
         <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/bone-crack.mp3')">DOWNLOAD</button>
     </div>
 
-    <!-- BOX 2 -->
     <div class="card">
         <h3>Vine Boom</h3>
         <button class="c2" onclick="playSound('https://www.myinstants.com/media/sounds/vine-boom.mp3')">PLAY</button>
         <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/vine-boom.mp3')">DOWNLOAD</button>
     </div>
 
-    <!-- BOX 3 -->
     <div class="card">
         <h3>Pop Sound</h3>
         <button class="c3" onclick="playSound('https://www.myinstants.com/media/sounds/pop-up.mp3')">PLAY</button>
         <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/pop-up.mp3')">DOWNLOAD</button>
     </div>
 
-    <!-- BOX 4 -->
     <div class="card">
         <h3>Metal Hit</h3>
         <button class="c4" onclick="playSound('https://www.myinstants.com/media/sounds/metal-hit.mp3')">PLAY</button>
         <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/metal-hit.mp3')">DOWNLOAD</button>
     </div>
 
+    <div class="card">
+        <h3>Click Sound</h3>
+        <button class="c1" onclick="playSound('https://www.myinstants.com/media/sounds/mouse-click.mp3')">PLAY</button>
+        <button class="download" onclick="downloadSound('https://www.myinstants.com/media/sounds/mouse-click.mp3')">DOWNLOAD</button>
+    </div>
+
 </div>
 
 </body>
+</html>
+
 </html>
