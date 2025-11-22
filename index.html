@@ -1,14 +1,13 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Freezone123</title>
+
 <style>
 body {
     font-family: Arial, sans-serif;
-    /* Colorful animated gradient background (no black) */
     background: linear-gradient(120deg, #ff6b6b, #f7b733, #6be6b8, #6b9bff, #c56bff);
     background-size: 1000% 1000%;
     animation: gradientMove 15s ease infinite;
@@ -25,14 +24,6 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* Soft overlay for readability */
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.18);
-    pointer-events: none;
-}
-
 header {
     text-align: center;
     padding: 20px;
@@ -40,6 +31,7 @@ header {
     font-weight: bold;
     background: #222;
 }
+
 .search-box {
     width: 90%;
     margin: 10px auto;
@@ -66,32 +58,26 @@ header {
     text-align: center;
     box-shadow: 0 0 15px rgba(255,255,255,0.15), 0 0 30px rgba(0,150,255,0.2);
 }
+
 .btn-play {
     width: 70px;
     height: 70px;
     border-radius: 50%;
     border: 3px solid rgba(255,255,255,0.4);
-    background: linear-gradient(135deg, #ff3e3e, #ff9d00, #4caf50, #2196f3, #9b27b0);
     background-size: 400% 400%;
     animation: btnGlow 6s ease infinite;
     color: #fff;
-    font-size: 22px;
+    font-size: 26px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 0 18px rgba(255,255,255,0.6), 0 0 25px rgba(255,255,255,0.4);
-    transition: 0.25s ease;
 }
-
-.btn-play:hover {
-    transform: scale(1.15) rotate(5deg);
-    box-shadow: 0 0 25px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.5);
-}
-
 @keyframes btnGlow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
+
 .btn-download {
     margin-top: 10px;
     padding: 8px 20px;
@@ -101,20 +87,46 @@ header {
     color: #fff;
     cursor: pointer;
 }
-.btn-play:hover {
-    transform: scale(1.1);
+
+.length {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #bbb;
 }
 </style>
 </head>
+
 <body>
 <header>Freezone123</header>
+
 <div class="search-box">
     <input type="text" id="search" placeholder="Search sounds..." onkeyup="filterCards()">
 </div>
+
 <div class="grid" id="grid"></div>
 
 <script>
 let currentAudio = null;
+
+// 👉 बस लिंक डालो — बाकी सब auto
+const soundLinks = [
+    "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3",
+    "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/a-few-moments-later-sponge-bob-sfx-fun.mp3",
+    "https://www.myinstants.com/media/sounds/pop.mp3",
+    "https://www.myinstants.com/media/sounds/beep.mp3"
+];
+
+// URL → TITLE automatic
+function autoTitle(url) {
+    return url.split('/').pop().replace(".mp3", "").replaceAll("-", " ");
+}
+
+// seconds → mm:ss
+function format(sec) {
+    let m = Math.floor(sec / 60);
+    let s = Math.floor(sec % 60).toString().padStart(2,"0");
+    return `${m}:${s}`;
+}
 
 const colors = [
     "linear-gradient(45deg, #ff3e3e, #ff7a7a)",
@@ -124,110 +136,71 @@ const colors = [
     "linear-gradient(45deg, #9b27b0, #e07bff)"
 ];
 
-// 👉 YAHAN PAR AAP UNLIMITED BUTTONS ADD KAR SAKTE HO
-// Bas neeche array me naya name + url add karna hota hai
-// Example:
-// {name: "New Sound", url: "https://link.mp3"},
-
-const sounds = [
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "Arkh", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/arkh.mp3"},
-    {name: "a few moment letar", url: "https://github.com/virendrasoni195-tech/Funny-Sounds-1/raw/main/a-few-moments-later-sponge-bob-sfx-fun.mp3"},
-    {name: "Pop Sound", url: "https://www.myinstants.com/media/sounds/pop.mp3"},
-    {name: "Click", url: "https://www.myinstants.com/media/sounds/click.mp3"},
-    {name: "Beep", url: "https://www.myinstants.com/media/sounds/beep.mp3"},
-    {name: "Drop", url: "https://www.myinstants.com/media/sounds/drop.mp3"}
-];
-
-function generateButtons() {
+// Generate cards
+function loadSounds() {
     const grid = document.getElementById("grid");
     grid.innerHTML = "";
 
-    let randomStart = Math.floor(Math.random() * colors.length);
-
-    sounds.forEach((sound, index) => {
+    soundLinks.forEach((url, i) => {
         const card = document.createElement("div");
         card.className = "card";
 
-        const colorIndex = (randomStart + index) % colors.length;
+        const title = autoTitle(url);
+        const color = colors[i % colors.length];
 
         card.innerHTML = `
-            <h3>${sound.name}</h3>
-            <button class="btn-play" style="background:${colors[colorIndex]}" onclick="playSound('${sound.url}')">▶</button>
-            <button class="btn-download" onclick="window.location.href='${sound.url}'">Download</button>
+            <h3>${title}</h3>
+            <button class="btn-play" style="background:${color}" onclick="playToggle('${url}', this)">▶</button>
+            <div class="length">Loading...</div>
+            <button class="btn-download" onclick="window.location.href='${url}'">Download</button>
         `;
+
         grid.appendChild(card);
+
+        // Duration auto
+        const audio = new Audio(url);
+        audio.addEventListener("loadedmetadata", () => {
+            card.querySelector(".length").innerText = format(audio.duration);
+        });
     });
 }
 
-generateButtons();
+loadSounds();
 
-function playSound(url) {
-    if (currentAudio && !currentAudio.paused) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
+// PLAY / PAUSE
+function playToggle(url, btn) {
+    if (currentAudio && currentAudio.src === url) {
+        if (currentAudio.paused) {
+            currentAudio.play();
+            btn.textContent = "⏸";
+        } else {
+            currentAudio.pause();
+            btn.textContent = "▶";
+        }
+        return;
     }
-    const audio = new Audio(url);
-    currentAudio = audio;
-    audio.play();
+
+    if (currentAudio) {
+        currentAudio.pause();
+        document.querySelectorAll(".btn-play").forEach(b => b.textContent = "▶");
+    }
+
+    currentAudio = new Audio(url);
+    currentAudio.play();
+    btn.textContent = "⏸";
+
+    currentAudio.onended = () => btn.textContent = "▶";
 }
 
+// SEARCH filter
 function filterCards() {
-    let input = document.getElementById("search").value.toLowerCase();
-    let cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
+    let text = document.getElementById("search").value.toLowerCase();
+    document.querySelectorAll(".card").forEach(card => {
         let title = card.querySelector("h3").textContent.toLowerCase();
-        card.style.display = title.includes(input) ? "block" : "none";
+        card.style.display = title.includes(text) ? "block" : "none";
     });
 }
 </script>
+
 </body>
 </html>
